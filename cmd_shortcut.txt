@@ -1,0 +1,3 @@
+cd Documents
+cd OpenCV_Scripts
+python object_track.py --cam 1
