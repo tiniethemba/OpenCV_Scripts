@@ -26,13 +26,13 @@ def checkArea(area, lower, upper):
         return 0
 
 #Upper & lower bounds for general colours
-g_lowerBound = np.array([32,80,40])
+g_lowerBound = np.array([34,100,40])
 g_upperBound = np.array([100,255,255])
 y_lowerBound = np.array([13,20,60])
 y_upperBound = np.array([20,255,255])
 r_lowerBound = np.array([0,140,200])
 r_upperBound = np.array([17, 255,255])
-b_lowerBound = np.array([92,60,80])
+b_lowerBound = np.array([95,60,80])
 b_upperBound = np.array([130, 255, 255])
 
 #HSV Bounds Arrays for LEDs
@@ -72,6 +72,7 @@ while True:
     #denoise(r_frame1)
     frame_HSV = cv2.cvtColor(r_frame,cv2.COLOR_BGR2HSV)
 
+
     # Create filter for yellow colour
     y_mask = cv2.inRange(frame_HSV, y_lowerBound, y_upperBound)
     y_maskOpen=cv2.morphologyEx(y_mask,cv2.MORPH_OPEN,kernelOpen)
@@ -82,19 +83,21 @@ while True:
     r_mask = cv2.inRange(frame_HSV, r_lowerBound, r_upperBound)
     r_maskOpen = cv2.morphologyEx(r_mask, cv2.MORPH_OPEN, kernelOpen)
     r_maskClose = cv2.morphologyEx(r_maskOpen, cv2.MORPH_CLOSE, kernelClose)
-    r_maskFinal = r_maskClose
+    r_maskFinal = denoise(r_maskClose)
 
     # Create filter for green colour
     g_mask = cv2.inRange(frame_HSV, g_lowerBound, g_upperBound)
     g_maskOpen = cv2.morphologyEx(g_mask, cv2.MORPH_OPEN, kernelOpen)
     g_maskClose = cv2.morphologyEx(g_maskOpen, cv2.MORPH_CLOSE, kernelClose)
-    g_maskFinal = g_maskClose
+    g_maskFinal = denoise(g_maskClose)
+    g_maskFinal = denoise(g_maskClose)
 
     # Create filter for green colour
     b_mask = cv2.inRange(frame_HSV, b_lowerBound, b_upperBound)
     b_maskOpen = cv2.morphologyEx(b_mask, cv2.MORPH_OPEN, kernelOpen)
     b_maskClose = cv2.morphologyEx(b_maskOpen, cv2.MORPH_CLOSE, kernelClose)
-    b_maskFinal = b_maskClose
+    b_maskFinal = denoise(b_maskClose)
+    b_maskFinal = denoise(b_maskFinal)
 
     #Find contours in the red & yellow masks
     y_im,y_contours,hier = cv2.findContours(y_maskFinal.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
@@ -117,16 +120,15 @@ while True:
         for j in range(len(contours[i])):
             x, y, w, h = cv2.boundingRect(contours[i][j])
             if i == 0:
-
-                cv2.circle(r_frame, (x, y), 15, (0, 255, 255), 4)
                 #print "Blue Height: %s\n Blue Width: %s" % (h,w)
                 # The colour blue
                 colour = (255,0,0)
+                cv2.circle(r_frame, (x, y), 2, colour, 1)
                 # The area of the blue object contour in rows * cols
                 b_area = cv2.contourArea(contours[i][j])
                 # Function checks area's within bounds
 
-                if checkArea(b_area, 40, 500):
+                if checkArea(b_area, 100, 500):
                     #Draws a rectangle around the contour bounds
                     cv2.rectangle(r_frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
                     print "Co-ords: ", (x,y)
@@ -143,11 +145,12 @@ while True:
                             found_blue +=1
 
             elif i == 1:
-                cv2.circle(r_frame, (x, y), 15, (0, 255, 255), 4)
+
                 g_area = cv2.contourArea(contours[i][j])
                 #print "Green Height: %s\n Green Width: %s" % (h, w)
                 colour = (0, 255, 0)
-                if checkArea(g_area, 40, 500):
+                cv2.circle(r_frame, (x, y), 2, colour, 2)
+                if checkArea(g_area, 100, 500):
                     cv2.rectangle(r_frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
                 print "Green Area: ", g_area
                 if g_area > 40 and count > 3 and len(g_area_list) < 3 :
@@ -159,10 +162,10 @@ while True:
                         #print "Green Object Found"
                         found_green += 1
             else:
-                cv2.circle(r_frame, (x+w, y+h), 5, (0, 255, 255), 4)
+                cv2.circle(r_frame, (x+w, y+h), 2, (0, 0, 255), 4)
                 r_area = cv2.contourArea(contours[i][j])
                 colour = (0,0,255)
-                if checkArea(r_area, 40,500):
+                if checkArea(r_area, 100,500):
                     cv2.rectangle(r_frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
                 print "Red Area:", r_area
                 if r_area > 40 and count > 3 and len(r_area_list) < 3 :
@@ -172,18 +175,19 @@ while True:
                     r_area_list.append(r_area)
                     r_len = len(r_area_list)
                     if (r_area_list[r_len - 2] + r_area_list[r_len - 1]) / 2 > 40:
-                        if checkArea(r_area, 40, 1000):
+                        if checkArea(r_area, 100, 1000):
                             #print "Red Object Found"
                             found_red += 1
 
             # Write the contour rectangle index in subscript of the rectangle
-            cv2.putText(r_frame, str(j + 1), (x-10, y+h+10), font, fontScale = 0.75, color =  colour, thickness = 2)
-
+            #cv2.putText(r_frame, str(j + 1), (x-10, y+h+10), font, fontScale = 0.75, color =  colour, thickness = 2)
+            cv2.putText(r_frame, "%s, %s" %(str(x),str(y)), (x-20, y + h+20
+                                                             ), font, fontScale=0.5, color=colour, thickness=2)
 
     #print len(x_list), len(y_list)
     for px in range(px_cols/40):
         cv2.line(r_frame, ((px*40),0), ((px*40),7), thickness= 1, color= (0,0,0))
-        cv2.putText(r_frame, str(px*40), ((px* 40), 25), color= (0,0,0), thickness=1, fontScale= 0.75, fontFace=cv2.FONT_HERSHEY_PLAIN)
+        cv2.putText(r_frame, str(px*40), ((px* 40), 25), color= (0,0,0), thickness=1, fontScale= 1, fontFace=cv2.FONT_HERSHEY_PLAIN)
     # Show all the windows
     cv2.imshow("Blue Mask", b_maskClose)
     cv2.imshow("Red Mask", r_maskClose)
@@ -201,5 +205,5 @@ while True:
     if k == 27:
         break
 
-    #time.sleep(0.2)
+    time.sleep(0.2)
 
