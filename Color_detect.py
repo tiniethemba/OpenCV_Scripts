@@ -10,10 +10,9 @@ args = vars(ap.parse_args())
 
 # load the image
 if __name__ == "__main__":
-    image = cv2.imread("rgb_example.jpg", )
-    image1 = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
-else:
     image = cv2.imread(args["image"])
+    image1 = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+
 height, width = image1.shape[:2]
 image = cv2.resize(image,(width/3,height/2), interpolation= cv2.INTER_AREA)
 image1 = cv2.resize(image1,(width/3,height/2), interpolation= cv2.INTER_AREA)

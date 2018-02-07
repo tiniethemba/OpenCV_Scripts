@@ -5,8 +5,8 @@ import argparse
 
 # cd Documents \r cd OpenCV_Scripts \r python object_track.py
 
-px_cols = 640
-px_rows = 480
+px_cols = 1280
+px_rows = 960
 
 
 ap = argparse.ArgumentParser()
@@ -205,5 +205,5 @@ while True:
     if k == 27:
         break
 
-    time.sleep(0.2)
+
 
