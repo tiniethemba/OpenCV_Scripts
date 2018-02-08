@@ -1,2 +1,4 @@
-.jpg
-.avi
+*.jpg
+*.avi
+*.png
+*.xml
