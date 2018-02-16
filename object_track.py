@@ -42,6 +42,8 @@ while True:
     count += 1
     print "\n ----%s----- \n" % str(count)
     # If the escape key is pressed, close the windows and release the video object
+    if count % 50 == 0 :
+        track.saveFrame("norm%s.jpg" % str(count/50), "contour%s.jpg"%str(count/50))
     k = cv2.waitKey(10) & 0xFF
     if k == 27:
         break

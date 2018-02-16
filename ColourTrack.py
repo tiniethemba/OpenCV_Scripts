@@ -275,6 +275,11 @@ class ColourTrack():
         self.grey = cv2.adaptiveThreshold(self.grey, 155, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY_INV, 11, 2)
         cv2.imshow("grey", self.grey)
 
+    def saveFrame(self, normal_frame_name ,contour_frame_name):
+        cv2.imwrite(normal_frame_name,self.frame)
+        cv2.imwrite(contour_frame_name, self.r_frame)
+
+
         #if self.count > 20:
             #self.out.write(self.r_frame)
 
