@@ -15,10 +15,11 @@ ap.add_argument("-v", "--cam", required=True,
 args = vars(ap.parse_args())
 
 #Upper & lower bounds for general colours
-g_list = [np.array([34,100,40]), np.array([100,255,255])]
-y_list = [np.array([13,20,60]), np.array([20,255,255])]
-r_list = [np.array([0,140,200]),np.array([17, 255,255])]
-b_list = [np.array([95,60,80]),np.array([130, 255, 255])]
+g_list = [np.array([34,100,170]), np.array([100,255,255])]
+y_list = [np.array([20,20,180]), np.array([30,255,255])]
+r_list = [np.array([0,120,190]),np.array([18, 255,255])]
+b_list = [np.array([95,100,100]),np.array([130, 255, 255])]
+w_list = [np.array([0,0,180]),np.array([255, 30, 255])]
 
 #HSV Bounds Arrays for LEDs
 g_led_list = [np.array([32,46,207]),np.array([59,255,255])]
@@ -32,12 +33,14 @@ cap = cv2.VideoCapture(cam)
 
 # Main loop for the colour track objects
 r,f = cap.read()
+count = 0
 while True:
-    track = ColourTrack(cap,px_cols,px_rows,r_list,g_list,b_list)
+    track = ColourTrack(cap,px_cols,px_rows,r_list,g_list,b_list,y_list,w_list)
     track.filter()
     track.makeContours()
     track.drawFrame()
-
+    count += 1
+    print "\n ----%s----- \n" % str(count)
     # If the escape key is pressed, close the windows and release the video object
     k = cv2.waitKey(10) & 0xFF
     if k == 27:

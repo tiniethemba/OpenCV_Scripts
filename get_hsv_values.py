@@ -24,33 +24,6 @@ def denoise(x):
 cv2.createTrackbar('h', 'result', 0, 179, nothing)
 cv2.createTrackbar('s', 'result', 0, 255, nothing)
 cv2.createTrackbar('v', 'result', 0, 255, nothing)
-
-def do_image(image1):
-    while (1):
-        image = cv2.imread(image1)
-        image = cv2.resize(image, (1200, 960))
-        image = denoise(image)
-        # converting to HSV
-        hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
-
-        # get info from track bar and appy to result
-        h = cv2.getTrackbarPos('h', 'result')
-        s = cv2.getTrackbarPos('s', 'result')
-        v = cv2.getTrackbarPos('v', 'result')
-
-        # Normal masking algorithm
-        lower_blue = np.array([h, s, v])
-        upper_blue = np.array([35, 255, 255])
-        mask = cv2.inRange(hsv, lower_blue, upper_blue)
-        result = cv2.bitwise_and(image, image, mask=mask)
-        cv2.imshow('result', result)
-        #cv2.imshow("mask", mask)
-        cv2.imshow('image', image)
-
-        key = cv2.waitKey(10) & 0xff
-        if key == 27:
-            break
-    cv2.destroyAllWindows()
 print args
 print args.get("im", 0)
 
@@ -83,14 +56,12 @@ while(1):
 
     # Normal masking algorithm
     lower_blue = np.array([h,s,v])
-    upper_blue = np.array([80,255,255])
+    upper_blue = np.array([255,30,255])
 
     mask = cv2.inRange(hsv,lower_blue, upper_blue)
 
     result = cv2.bitwise_and(frame,frame,mask = mask)
     cv2.imshow('result', result)
-    cv2.imshow("mask", mask)
-    cv2.imshow('frame', frame)
 
     k = cv2.waitKey(5) & 0xFF
     if k == 27:
