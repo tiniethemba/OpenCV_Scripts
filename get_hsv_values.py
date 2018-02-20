@@ -56,7 +56,7 @@ while(1):
 
     # Normal masking algorithm
     lower_blue = np.array([h,s,v])
-    upper_blue = np.array([255,30,255])
+    upper_blue = np.array([255,255,255])
 
     mask = cv2.inRange(hsv,lower_blue, upper_blue)
 

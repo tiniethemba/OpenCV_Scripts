@@ -36,6 +36,12 @@ class ColourTrack():
         self.frame_area = self.px_cols * self.px_rows
         self.fourcc = cv2.VideoWriter_fourcc(*'XVID')
         self.out = cv2.VideoWriter("output.avi", self.fourcc, 10.0, (self.px_cols, self.px_rows))
+        self.objects = {
+            'type' : '',
+            'co-ords' : '',
+            'colour': '',
+            'shape' : '',
+        }
         if redBounds == None:
             self.red = 0
         else: self.red = 1
@@ -141,36 +147,41 @@ class ColourTrack():
         y_im, self.y_contours, y_hier = cv2.findContours(y_thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
         w_ret, w_thresh = cv2.threshold(self.w_maskFinal.copy(), 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
         w_im, self.w_contours, w_hier = cv2.findContours(w_thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
-
         self.contours = [self.b_contours, self.g_contours, self.r_contours, self.y_contours, self.w_contours]
 
-    def drawFrame(self):
+    def drawFrame(self, resize = None):
         self.shapes = []
         # Iterate through contours for each colour & draw a box round a sufficient cluster.
         for i in range(len(self.contours)):
             #if self.contours[i] == None:
                 #self.contours.pop(i)
             if i == 0:
-                colors = (255,0,0)
+                colors = (255,0,0) # blue
                 cv2.drawContours(self.r_frame, self.contours[i], -1, colors, 3)
             elif i == 1:
-                colors = (0,255,0)
+                colors = (0,255,0) # green
                 cv2.drawContours(self.r_frame, self.contours[i], -1, colors, 3)
             elif i == 2:
-                colors = (0,0,255)
+                colors = (0,0,255) # red
                 cv2.drawContours(self.r_frame, self.contours[i], -1, colors, 3)
             elif i == 3:
-                colors = (0,255,255)
+                colors = (0,255,255) # yellow
                 cv2.drawContours(self.r_frame, self.contours[i], -1, colors, 3)
             elif i == 4:
-                colors = (255,255,255)
+                colors = (255,255,255) # white
                 cv2.drawContours(self.r_frame, self.contours[i], -1, colors, 3)
             the_area = 0
             for j in range(len(self.contours[i])):
                 gen_area = cv2.contourArea(self.contours[i][j])
-                if self.checkArea(gen_area, self.frame_area/(10**4), self.frame_area):
-                    self.shapes.append(self.shape(self.contours[i][j], self.r_frame, colors))
-                    x, y, w, h = cv2.boundingRect(self.contours[i][j])
+                if self.checkArea(gen_area, resize * self.frame_area/10000, resize * self.frame_area):
+                    cv2.imshow("Pre-shape frame", self.r_frame)
+
+                    #rect = cv2.minAreaRect(self.contours[i][j])
+                    #box = cv2.boxPoints(rect)
+                    #box = np.int0(box)
+                    #print "Box values:", box[3]
+                    #cv2.drawContours(self.r_frame,[box],0,colors,2)
+
                     if i == 0:
                         self.colour_string = "Blue"
                         self.b_area = cv2.contourArea(self.contours[i][j])
@@ -193,20 +204,24 @@ class ColourTrack():
                         the_area = self.w_area
                     else:
                         print "Oh Oh, spaghetti-o's!!"
-                    cv2.circle(self.r_frame, (x, y), 2, colors, 1)  # global
+                    x, y, w, h = cv2.boundingRect(self.contours[i][j])
+                    co_ords = (x, y)
+                    self.shapes.append(self.shape(self.contours[i][j], self.r_frame, colors))
+                    current_shape = self.shape(self.contours[i][j], self.r_frame, colors)
+                    self.features(co_ords, self.colour_string, current_shape)
                     # Function checks area's within bounds, and draws a rectangle around the contour bounds.
-                    if self.checkArea(the_area, 1000, 5000):
-                        cv2.rectangle(self.r_frame, (x, y), (x + w, y + h), colors, 2)
-                    print "%s Area: %s" % (self.colour_string, str(the_area))
-                    print "Co-ords: ", (x, y)
+                    #if self.checkArea(the_area, 1000, 5000):
+                        #cv2.rectangle(self.r_frame, (x, y), (x + w, y + h), colors, 2)
+                    #print "%s Area: %s" % (self.colour_string, str(the_area))
+                    #print "Co-ords: ", (x, y)
 
                     # Write the contour rectangle index in subscript of the rectangle
-                    if self.checkArea(the_area, 500, 1000000):
-                        cv2.putText(self.r_frame, "%s, %s" % (str(x), str(y)), (x - 40, y + 45
-                                                                       ), self.font, fontScale=0.5, color=colors, thickness=2)
+                    if self.checkArea(the_area, resize * self.frame_area/(10000), resize * self.frame_area):
+                        cv2.putText(self.r_frame, "[%s]: %s, %s" % (self.objects[str(co_ords)]['type'],str(x), str(y)), (x+w, y+h), self.font, fontScale=0.5, color=colors, thickness=2)
 
             # Show all the windows
         #cv2.imshow("White Mask", self.r_maskClose)
+        self.r_frame = cv2.resize(self.r_frame,dsize = (0,0), fx = resize, fy= resize)
         cv2.imshow("Contoured Frame", self.r_frame)
         #cv2.imshow("grey", self.grey)
 
@@ -238,16 +253,22 @@ class ColourTrack():
         # otherwise, we assume the shape is a circle
         else:
             shape = "circle"
+
         M = cv2.moments(c)
         cX = int(M["m10"] / M["m00"])
         cY = int(M["m01"] / M["m00"])
 
         # draw the contour and center of the shape on the image
-        cv2.drawContours(frame, [c], -1, colour, 2)
+        #cv2.drawContours(frame, [c], -1, colour, 2)
+        #Draw centre circle on shape
         cv2.circle(frame, (cX, cY), 7, colour, -1)
-        cv2.putText(frame, "%s"%shape, (cX - 20, cY - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, colour, 2)
+        cv2.putText(frame, "%s" % shape, (cX - 20, cY - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, colour, 2)
 
         return shape
+
+    def ROS_pub(self):
+        import rospy
+        import
 
     def auto_canny(self, image, sigma=0.33):
         # compute the median of the single channel pixel intensities
@@ -258,6 +279,37 @@ class ColourTrack():
         edged = cv2.Canny(image, lower, upper)
         # return the edged image
         return edged
+
+    def features(self,co_ords, colour, shape, area = None):
+        c = str(co_ords)
+        self.objects[c] = {}
+        self.objects[c]['colour'] = colour
+        self.objects[c]['shape'] = shape
+        print "\n %s, %s, %s " % (c,self.objects[c]['colour'],self.objects[c]['shape'])
+
+        if shape == 'circle' and colour == "Red":
+            self.objects[c]['type'] = "Fuel Cell"
+            print "FOUND FUEL CELL!!!!!!"
+
+        elif shape == 'rectangle' and colour == "Green":
+            self.objects[c]['type'] = "DaNI Robot"
+
+        elif shape == 'rectangle' and colour == "Blue":
+            self.objects[c]['type'] = "Chair"
+
+        elif colour == "Yellow":
+            self.objects[c]['type'] = "Potential Marker"
+
+        elif shape == 'rectangle' and colour == "Red":
+            self.objects[c]['type'] = "Tri-Track"
+
+        elif colour == "White":
+            self.objects[c]['type'] = "Terrain edge"
+
+        else:
+            self.objects[c]['type'] = "Unknown"
+            print "ERROR: CAN'T IDENTIFY THE TERRAIN FEATURE"
+
 
 
     def saveFrame(self, normal_frame_name ,contour_frame_name):

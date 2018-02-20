@@ -5,9 +5,9 @@ import argparse
 
 # cd Documents \r cd OpenCV_Scripts \r python object_track.py
 
-px_cols = 960
-px_rows = 540
-filename = "map.jpg"
+px_cols = 1920
+px_rows = 1080
+filename = "normal.jpg"
 
 
 ap = argparse.ArgumentParser()
@@ -17,8 +17,8 @@ args = vars(ap.parse_args())
 
 #Upper & lower bounds for general colours
 g_list = [np.array([34,100,120]), np.array([100,255,255])]
-y_list = [np.array([20,20,180]), np.array([30,255,255])]
-r_list = [np.array([0,120,190]),np.array([18, 255,255])]
+y_list = [np.array([23,40,210]), np.array([30,255,255])]
+r_list = [np.array([0,120,170]),np.array([18, 255,255])]
 b_list = [np.array([95,100,100]),np.array([130, 255, 255])]
 w_list = [np.array([0,0,180]),np.array([255, 30, 255])]
 
@@ -36,15 +36,14 @@ cap = cv2.VideoCapture(cam)
 r,f = cap.read()
 count = 1
 while True:
-
     print "\n ----%s----- \n" % str(count)
     track = ColourTrack(cap,px_cols,px_rows,r_list,g_list,b_list,y_list,w_list,0,filename)
     track.filter()
     track.makeContours()
-    track.drawFrame()
-    print track.shapes
+    track.drawFrame(0.5)
+    print track.objects
     # If the escape key is pressed, close the windows and release the video object
-    if count % 100 == 0 :
+    if count % 50 == 0 :
         track.saveFrame("norm%s.jpg" % str(count/50), "contour%s.jpg"%str(count/50))
     cont_frame = track.r_frame
     count += 1
