@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import talker
 
 class ColourTrack():
     def __init__(self, cam, px_cols, px_rows, redBounds, greenBounds, blueBounds, yellowBounds = None, whiteBounds = None, video_mode = 0, filename = None):
@@ -118,6 +119,8 @@ class ColourTrack():
             self.y_maskClose = cv2.morphologyEx(self.y_maskOpen, cv2.MORPH_CLOSE, self.kernelClose)
             self.y_maskFinal = self.denoise(self.y_maskClose)
             #self.y_maskFinal = self.denoise(self.y_maskFinal)
+            cv2.imshow("Open", self.y_maskOpen)
+            cv2.imshow("CLosed", self.y_maskClose)
 
         if self.white:
             # Create filter for yellow colour
@@ -138,7 +141,7 @@ class ColourTrack():
         # Find contours in the red & yellow masks
 
         b_ret, b_thresh = cv2.threshold(self.b_maskFinal.copy(), 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
-        b_im, self.b_contours, b_hier = cv2.findContours(b_thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+        b_im, self.b_contours, b_hier = cv2.findContours(b_thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         g_ret, g_thresh = cv2.threshold(self.g_maskFinal.copy(), 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
         g_im, self.g_contours, g_hier = cv2.findContours(g_thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
         r_ret, r_thresh = cv2.threshold(self.r_maskFinal.copy(), 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
@@ -146,85 +149,82 @@ class ColourTrack():
         y_ret, y_thresh = cv2.threshold(self.y_maskFinal.copy(), 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
         y_im, self.y_contours, y_hier = cv2.findContours(y_thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
         w_ret, w_thresh = cv2.threshold(self.w_maskFinal.copy(), 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
-        w_im, self.w_contours, w_hier = cv2.findContours(w_thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+        w_im, self.w_contours, w_hier = cv2.findContours(w_thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         self.contours = [self.b_contours, self.g_contours, self.r_contours, self.y_contours, self.w_contours]
 
     def drawFrame(self, resize = None):
         self.shapes = []
         # Iterate through contours for each colour & draw a box round a sufficient cluster.
         for i in range(len(self.contours)):
-            #if self.contours[i] == None:
-                #self.contours.pop(i)
+
             if i == 0:
                 colors = (255,0,0) # blue
+                self.colour_string = "Blue"
                 cv2.drawContours(self.r_frame, self.contours[i], -1, colors, 3)
             elif i == 1:
                 colors = (0,255,0) # green
+                self.colour_string = "Green"
                 cv2.drawContours(self.r_frame, self.contours[i], -1, colors, 3)
             elif i == 2:
+                self.colour_string = "Red"
                 colors = (0,0,255) # red
                 cv2.drawContours(self.r_frame, self.contours[i], -1, colors, 3)
+                print ": Contours List:" , ( self.contours[i])
             elif i == 3:
+                self.colour_string = "Yellow"
                 colors = (0,255,255) # yellow
                 cv2.drawContours(self.r_frame, self.contours[i], -1, colors, 3)
             elif i == 4:
+                self.colour_string = "White"
                 colors = (255,255,255) # white
                 cv2.drawContours(self.r_frame, self.contours[i], -1, colors, 3)
             the_area = 0
+            print "%s: Contours List Length: %d" % (self.colour_string, len(self.contours[i]))
             for j in range(len(self.contours[i])):
                 gen_area = cv2.contourArea(self.contours[i][j])
                 if self.checkArea(gen_area, resize * self.frame_area/10000, resize * self.frame_area):
                     cv2.imshow("Pre-shape frame", self.r_frame)
-
-                    #rect = cv2.minAreaRect(self.contours[i][j])
-                    #box = cv2.boxPoints(rect)
-                    #box = np.int0(box)
-                    #print "Box values:", box[3]
-                    #cv2.drawContours(self.r_frame,[box],0,colors,2)
+                    rect = cv2.minAreaRect(self.contours[i][j])
+                    box = cv2.boxPoints(rect)
+                    box = np.int0(box)
+                    cv2.drawContours(self.r_frame,[box],0,colors,2)
 
                     if i == 0:
-                        self.colour_string = "Blue"
                         self.b_area = cv2.contourArea(self.contours[i][j])
-                        the_area = self.b_area
+                        the_area = int(self.b_area)
                     elif i == 1:
                         self.g_area = cv2.contourArea(self.contours[i][j])
-                        self.colour_string = "Green"
-                        the_area = self.g_area
+                        the_area = int(self.g_area)
                     elif i == 2:
-                        self.colour_string = "Red"
                         self.r_area = cv2.contourArea(self.contours[i][j])
-                        the_area = self.r_area
+                        the_area = int(self.r_area)
                     elif i == 3:
-                        self.colour_string = "Yellow"
                         self.y_area = cv2.contourArea(self.contours[i][j])
-                        the_area = self.y_area
+                        the_area = int(self.y_area)
                     elif i == 4:
-                        self.colour_string = "White"
                         self.w_area = cv2.contourArea(self.contours[i][j])
-                        the_area = self.w_area
+                        the_area = int(self.w_area)
                     else:
                         print "Oh Oh, spaghetti-o's!!"
-                    x, y, w, h = cv2.boundingRect(self.contours[i][j])
-                    co_ords = (x, y)
+                    #x, y, w, h = cv2.boundingRect(self.contours[i][j])
+                    x,y = box[2]
+                    co_ords = (x,y)
                     self.shapes.append(self.shape(self.contours[i][j], self.r_frame, colors))
                     current_shape = self.shape(self.contours[i][j], self.r_frame, colors)
-                    self.features(co_ords, self.colour_string, current_shape)
+                    self.features(co_ords, self.colour_string, current_shape, the_area)
                     # Function checks area's within bounds, and draws a rectangle around the contour bounds.
-                    #if self.checkArea(the_area, 1000, 5000):
-                        #cv2.rectangle(self.r_frame, (x, y), (x + w, y + h), colors, 2)
-                    #print "%s Area: %s" % (self.colour_string, str(the_area))
-                    #print "Co-ords: ", (x, y)
+                    print "Co-ords: ", (x, y)
 
                     # Write the contour rectangle index in subscript of the rectangle
                     if self.checkArea(the_area, resize * self.frame_area/(10000), resize * self.frame_area):
-                        cv2.putText(self.r_frame, "[%s]: %s, %s" % (self.objects[str(co_ords)]['type'],str(x), str(y)), (x+w, y+h), self.font, fontScale=0.5, color=colors, thickness=2)
+                        cv2.putText(self.r_frame, "[%s]: %s, %s, %s" % (self.objects[str(co_ords)]['type'],str(x), str(y), str(the_area)), (x, y), self.font, fontScale=0.5, color=colors, thickness=2)
 
-            # Show all the windows
         #cv2.imshow("White Mask", self.r_maskClose)
         self.r_frame = cv2.resize(self.r_frame,dsize = (0,0), fx = resize, fy= resize)
         cv2.imshow("Contoured Frame", self.r_frame)
         #cv2.imshow("grey", self.grey)
 
+    # FUnction to determine the shape of contours on the contoured frame
     def shape(self, c, frame = None, colour=None):
         shape = "unidentified"
         peri = cv2.arcLength(c, True)
@@ -236,7 +236,7 @@ class ColourTrack():
 
         # if the shape has 4 vertices, it is either a square or
         # a rectangle
-        elif len(approx) == 4:
+        elif len(approx) == 4 :
             # compute the bounding box of the contour and use the
             # bounding box to compute the aspect ratio
             (x, y, w, h) = cv2.boundingRect(approx)
@@ -248,7 +248,7 @@ class ColourTrack():
 
         # if the shape is a pentagon, it will have 5 vertices
         elif len(approx) == 5:
-            shape = "pentagon"
+            shape = "rectangular"
 
         # otherwise, we assume the shape is a circle
         else:
@@ -259,16 +259,18 @@ class ColourTrack():
         cY = int(M["m01"] / M["m00"])
 
         # draw the contour and center of the shape on the image
-        #cv2.drawContours(frame, [c], -1, colour, 2)
         #Draw centre circle on shape
         cv2.circle(frame, (cX, cY), 7, colour, -1)
         cv2.putText(frame, "%s" % shape, (cX - 20, cY - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, colour, 2)
 
         return shape
 
-    def ROS_pub(self):
-        import rospy
-        import
+    # Function to publish the feature/obstacle information from the frame to a ROS node.
+    def ROS_pub(self, message = None, topic = None, rate = None):
+        talk = talker.Talker(message,topic,rate)
+        if message !=  None:
+            talk.talker()
+
 
     def auto_canny(self, image, sigma=0.33):
         # compute the median of the single channel pixel intensities
@@ -280,6 +282,8 @@ class ColourTrack():
         # return the edged image
         return edged
 
+
+    # Function applying logic to contour properties to categorise the obstacles
     def features(self,co_ords, colour, shape, area = None):
         c = str(co_ords)
         self.objects[c] = {}
@@ -287,12 +291,17 @@ class ColourTrack():
         self.objects[c]['shape'] = shape
         print "\n %s, %s, %s " % (c,self.objects[c]['colour'],self.objects[c]['shape'])
 
-        if shape == 'circle' and colour == "Red":
+
+        if shape == 'rectangular' and colour != 'White':
+            self.objects[c]['type'] = "Potential Robot"
+
+        elif shape == 'circle' and colour == "Red":
             self.objects[c]['type'] = "Fuel Cell"
             print "FOUND FUEL CELL!!!!!!"
 
         elif shape == 'rectangle' and colour == "Green":
             self.objects[c]['type'] = "DaNI Robot"
+
 
         elif shape == 'rectangle' and colour == "Blue":
             self.objects[c]['type'] = "Chair"
