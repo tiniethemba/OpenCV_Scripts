@@ -1,6 +1,6 @@
 import numpy as np
 import cv2
-
+# 1FAST.py draws keypoints for matching using th FAST algorithm
 cap = cv2.VideoCapture(0)
 #cap1 = cv2.VideoCapture(1)
 r,f = cap.read()

@@ -1,6 +1,9 @@
 import numpy as np
 import cv2
 
+# Matcher class compares the training photo to the webcam.
+
+
 ESC = 27
 camera = cv2.VideoCapture(0)
 orb = cv2.ORB_create()

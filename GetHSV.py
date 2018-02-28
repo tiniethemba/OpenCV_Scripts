@@ -10,9 +10,12 @@ args = vars(ap.parse_args())
 
 
 class getHSV():
-    def __init__(self):
+    def __init__(self, px_cols = None, px_rows = None):
         # Creating a window for later use
         cv2.namedWindow('result')
+        self.px_cols = px_cols
+        self.px_rows = px_rows
+
 
         # Starting with 100's to prevent error while masking
         self.h, self.s, self.v = 100, 100, 100
@@ -25,17 +28,19 @@ class getHSV():
             self.cam_index = int(args["cam"])
             self.cap = cv2.VideoCapture(self.cam_index)
 
-    def filter(self):
+    def getHSV(self):
 
+        ## Function to find HSV values from image by adjusting a trackbar. Press 's' to save the final HSV values.
+        # Returns self.HSV_list: The final H, S and V values when the user presses the 's' (save) key
 
         while (True):
             if args.get("im", 0):
                 frame = cv2.imread(self.my_image)
             else:
                 _, frame = self.cap.read()
-
-            frame = cv2.resize(frame, (480, 360))
-            frame = self.denoise(frame)
+            if self.px_rows != None:
+                frame = cv2.resize(frame, (self.px_cols, self.px_rows))
+            #frame = self.denoise(frame)
 
             # converting to HSV
             hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -47,7 +52,7 @@ class getHSV():
 
             # Normal masking algorithm
             lower = np.array([self.h, self.s, self.v])
-            upper = np.array([255, 255, 255])
+            upper = np.array([120, 255, 255])
 
             self.mask = cv2.inRange(hsv, lower, upper)
 
@@ -55,6 +60,10 @@ class getHSV():
             cv2.imshow('result', self.result)
 
             self.k = cv2.waitKey(5) & 0xFF
+
+            if self.k == 115:
+                self.HSV_list = [self.h, self.s, self.v]
+                return self.HSV_list
             if self.k == 27:
                 break
 
@@ -67,8 +76,12 @@ class getHSV():
         frame = cv2.GaussianBlur(frame, (5, 5), 0)
         return frame
 
-    def nothing(self):
+    def nothing(self, filler):
         pass
+
+if __name__  == "__main__":
+    gh = getHSV()
+    gh.getHSV()
 
 
 
