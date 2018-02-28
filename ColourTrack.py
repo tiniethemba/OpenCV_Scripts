@@ -3,7 +3,7 @@ import numpy as np
 import talker
 
 class ColourTrack():
-    def __init__(self, cam, px_cols, px_rows, redBounds, greenBounds, blueBounds, yellowBounds = None, whiteBounds = None, video_mode = 0, filename = None):
+    def __init__(self, cam, px_cols, px_rows, redBounds=None, greenBounds=None, blueBounds=None, yellowBounds = None, whiteBounds = None, video_mode = 0, filename = None):
         self.r_lowerBound = redBounds[0]
         self.r_upperBound = redBounds[1]
         self.g_lowerBound = greenBounds[0]

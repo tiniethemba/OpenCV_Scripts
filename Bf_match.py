@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import time
 
+#
+
 source = cv2.imread('white_pole.png',0)
 source = cv2.resize(source, (640,480))
 cap = cv2.VideoCapture(0)

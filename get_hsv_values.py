@@ -67,7 +67,7 @@ while(1):
     if k == 27:
         break
 
-
-cap.release()
+if args.get("cam", 0):
+    cap.release()
 
 cv2.destroyAllWindows()
