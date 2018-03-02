@@ -41,7 +41,7 @@ while True:
     track.filter()
     track.makeContours()
     track.drawFrame(0.5)
-    print track.objects
+    print "Objects list: \n", track.objects
     # If the escape key is pressed, close the windows and release the video object
     if count % 50 == 0 :
         track.saveFrame("norm%s.jpg" % str(count/50), "contour%s.jpg"%str(count/50))
