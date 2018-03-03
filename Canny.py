@@ -24,7 +24,7 @@ while(1):
     print tess.image_to_string(Image.fromarray(fin)).encode("utf-8")
     if key == 27:
         break
-    if abs(time.time() - start) > 20:
+    if abs(time.time() - start) > 200:
         break
 cv2.destroyAllWindows()
 

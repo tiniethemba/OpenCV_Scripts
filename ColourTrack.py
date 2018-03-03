@@ -3,7 +3,7 @@ import numpy as np
 import talker
 
 class ColourTrack():
-    def __init__(self, cam, px_cols, px_rows, redBounds=None, greenBounds=None, blueBounds=None, yellowBounds = None, whiteBounds = None, video_mode = 0, filename = None):
+    def __init__(self, px_cols, px_rows, cam = None, redBounds=None, greenBounds=None, blueBounds=None, yellowBounds = None, whiteBounds = None, filename = None):
 
         self.blue = (255,0,0)
         self.green = (0,255,0)
@@ -61,11 +61,11 @@ class ColourTrack():
             self.white = 1
             self.w_lowerBound = whiteBounds[0]
             self.w_upperBound = whiteBounds[1]
-        if video_mode == True:
+        if cam:
             self.ret, self.frame = self.cap.read()
         else:
             self.frame = cv2.imread(filename)
-            self.cap.release()
+
 
 
         # Resized to process faster
@@ -202,8 +202,10 @@ class ColourTrack():
                         rect = cv2.minAreaRect(self.contours[i][j])
                         box = cv2.boxPoints(rect)
                         self.box = np.int0(box)
-                        cv2.drawContours(self.r_frame,[self.box],0,colors,2)
-
+                        #cv2.drawContours(self.r_frame,[self.box],0,colors,2)
+                        epsilon = 0.1 * cv2.arcLength(self.contours[i][j], True)
+                        approx = cv2.approxPolyDP(self.contours[i][j], epsilon, True)
+                        cv2.drawContours(self.r_frame,[approx],0,colors,2)
                         if i == 0:
                             self.b_area = cv2.contourArea(self.contours[i][j])
                             the_area = int(self.b_area)
@@ -301,16 +303,15 @@ class ColourTrack():
         if message !=  None:
             talk.talker()
 
-
-    def auto_canny(self, image, sigma=0.33):
-        # compute the median of the single channel pixel intensities
-        v = np.median(image)
-        # apply automatic Canny edge detection using the computed median
-        lower = int(max(0, (1.0 - sigma) * v))
-        upper = int(min(255, (1.0 + sigma) * v))
-        edged = cv2.Canny(image, lower, upper)
+    def auto_canny(self, image, lower=100, upper=180):
+        filtered = cv2.adaptiveThreshold(image.astype(np.uint8), 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 15, 3)
+        kernel = np.ones((1, 1), np.uint8)
+        opening = cv2.morphologyEx(filtered, cv2.MORPH_OPEN, kernel)
+        closing = cv2.morphologyEx(opening, cv2.MORPH_CLOSE, kernel)
+        or_image = cv2.bitwise_or(image, closing)
+        # edged = cv2.Canny(or_image, lower, upper)
         # return the edged image
-        return edged
+        return or_image
 
 
     # Function applying logic to contour properties to categorise the obstacles

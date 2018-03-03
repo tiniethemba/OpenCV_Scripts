@@ -80,7 +80,7 @@ class getHSV():
         pass
 
 if __name__  == "__main__":
-    gh = getHSV()
+    gh = getHSV(640,480)
     gh.getHSV()
 
 

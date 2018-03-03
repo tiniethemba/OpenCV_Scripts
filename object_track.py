@@ -37,7 +37,7 @@ r,f = cap.read()
 count = 1
 while True:
     print "\n ----%s----- \n" % str(count)
-    track = ColourTrack(cap,px_cols,px_rows,r_list,g_list,b_list,y_list,w_list,0,filename)
+    track = ColourTrack(px_cols,px_rows, cap, r_list,g_list,b_list,y_list,w_list,filename)
     track.filter()
     track.makeContours()
     track.drawFrame(0.5)
