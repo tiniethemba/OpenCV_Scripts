@@ -86,10 +86,12 @@ class SelectScreen():
         print self.cont_count
 
 args = MyArgs.MyArgs()
-
-
-if args.imcam() != 0:
-    file = args.imcam()[1]
+arg_lst = args.imcam()
+if arg_lst[0] == "im":
+    file = arg_lst[1]
+elif arg_lst[0] == "cam":
+    cam = int(arg_lst[1])
+    cam = cv2.VideoCapture(cam)
 else: file = "LCD.png"
 ss = SelectScreen(px_cols,px_rows,b_list, file)
 ss.crop()

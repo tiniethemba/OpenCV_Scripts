@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import MyArgs
 from ColourTrack import ColourTrack
 import argparse
 
@@ -7,13 +8,19 @@ import argparse
 
 px_cols = 1920
 px_rows = 1080
-filename = "normal.jpg"
 
 
-ap = argparse.ArgumentParser()
-ap.add_argument("-v", "--cam", required=True,
-	help="Camera Index (from 0 to number of connected webcams)")
-args = vars(ap.parse_args())
+args = MyArgs.MyArgs()
+arg_lst = args.imcam()
+if arg_lst[0] == "im":
+    file = arg_lst[1]
+elif arg_lst[0] == "cam":
+    cam = int(arg_lst[1])
+    cam = cv2.VideoCapture(cam)
+else:
+    file = "normal.jpg"
+    cam = None
+
 
 #Upper & lower bounds for general colours
 g_list = [np.array([34,100,120]), np.array([100,255,255])]
@@ -28,16 +35,14 @@ y_led_list = [np.array([19,0,216]),np.array([28,255,255])]
 r_led_list = [np.array([0,0,216]),np.array([5, 255,255])]
 
 
-cam = int(args["cam"])
-cap = cv2.VideoCapture(cam)
 
 
 # Main loop for the colour track objects
-r,f = cap.read()
+
 count = 1
 while True:
     print "\n ----%s----- \n" % str(count)
-    track = ColourTrack(px_cols,px_rows, cap, r_list,g_list,b_list,y_list,w_list,filename)
+    track = ColourTrack(px_cols,px_rows, cam, r_list,g_list,b_list,y_list,w_list,file)
     track.filter()
     track.makeContours()
     track.drawFrame(0.5)
@@ -50,5 +55,6 @@ while True:
     k = cv2.waitKey(10) & 0xFF
     if k == 27:
         break
-cap.release()
+if cam != None:
+    cam.release()
 cv2.destroyAllWindows()

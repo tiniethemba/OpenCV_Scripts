@@ -5,11 +5,6 @@ import talker
 class ColourTrack():
     def __init__(self, px_cols, px_rows, cam = None, redBounds=None, greenBounds=None, blueBounds=None, yellowBounds = None, whiteBounds = None, filename = None):
 
-        self.blue = (255,0,0)
-        self.green = (0,255,0)
-        self.red = (0,0,255)
-        self.yellow = (0,255,255)
-        self.white = (0,0,0)
         self.cap = cam
         self.count = 0
         self.found_blue = 0

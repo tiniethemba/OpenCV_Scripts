@@ -13,10 +13,11 @@ class MyArgs():
             self.my_image = self.args["im"]
             lst = ["im", self.my_image]
             return lst
-        else:
+        elif self.args.get("cam", 0):
             self.cam_index = int(self.args["cam"])
             self.cap = cv2.VideoCapture(self.cam_index)
             lst = ["cam", self.cap]
             return lst
-
+        else:
+            return [0]
 
