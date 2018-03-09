@@ -14,9 +14,10 @@ args = MyArgs.MyArgs()
 arg_lst = args.imcam()
 if arg_lst[0] == "im":
     file = arg_lst[1]
+    cam = None
 elif arg_lst[0] == "cam":
-    cam = int(arg_lst[1])
-    cam = cv2.VideoCapture(cam)
+    cam = arg_lst[1]
+    file = None
 else:
     file = "normal.jpg"
     cam = None
@@ -24,10 +25,10 @@ else:
 
 #Upper & lower bounds for general colours
 g_list = [np.array([34,100,120]), np.array([100,255,255])]
-y_list = [np.array([23,40,210]), np.array([30,255,255])]
+y_list = [np.array([23,70,210]), np.array([30,255,255])]
 r_list = [np.array([0,120,170]),np.array([18, 255,255])]
 b_list = [np.array([95,100,100]),np.array([130, 255, 255])]
-w_list = [np.array([0,0,180]),np.array([255, 30, 255])]
+w_list = [np.array([0,0,200]),np.array([255, 30, 255])]
 
 #HSV Bounds Arrays for LEDs
 g_led_list = [np.array([32,46,207]),np.array([59,255,255])]
@@ -46,7 +47,8 @@ while True:
     track.filter()
     track.makeContours()
     track.drawFrame(0.5)
-    print "Objects list: \n", track.objects
+    track.findBridge()
+    #print "Objects list: \n", track.objects
     # If the escape key is pressed, close the windows and release the video object
     if count % 50 == 0 :
         track.saveFrame("norm%s.jpg" % str(count/50), "contour%s.jpg"%str(count/50))

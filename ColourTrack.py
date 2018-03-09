@@ -26,6 +26,7 @@ class ColourTrack():
         self.objects = {
         }
         self.co_ord_list = []
+        self.features_count = 0
         if redBounds == None:
             self.red = 0
         else:
@@ -198,9 +199,11 @@ class ColourTrack():
                         box = cv2.boxPoints(rect)
                         self.box = np.int0(box)
                         #cv2.drawContours(self.r_frame,[self.box],0,colors,2)
-                        epsilon = 0.1 * cv2.arcLength(self.contours[i][j], True)
+                        epsilon = 0.001 * cv2.arcLength(self.contours[i][j], True)
                         approx = cv2.approxPolyDP(self.contours[i][j], epsilon, True)
-                        cv2.drawContours(self.r_frame,[approx],0,colors,2)
+                        #hull = cv2.convexHull(self.contours[i][j])
+                        cv2.drawContours(self.r_frame,[approx],0,colors,3)
+
                         if i == 0:
                             self.b_area = cv2.contourArea(self.contours[i][j])
                             the_area = int(self.b_area)
@@ -218,7 +221,7 @@ class ColourTrack():
                             the_area = int(self.w_area)
                         else:
                             print "Oh Oh, spaghetti-o's!!"
-                        #x, y, w, h = cv2.boundingRect(self.contours[i][j])
+
                         x1,y1 = box[0]
                         x2,y2 = box[1]
                         x3,y3 = box[2]
@@ -232,14 +235,22 @@ class ColourTrack():
                         y3 = int(y3)
                         y4 = int(y4)
                         co_ords = (x2,y2)
+                        #print "APPROXIMATION LENGTH %d "%len(approx)
+                        appr_list = []
+                        count = 0
+                        l_approx = np.array(approx).tolist()
+                        for appr in l_approx:
+                            for app in appr:
+                                appr_list.append(app)
+
                         self.co_ord_list.append(co_ords)
-                        self.box_co_ords = [(x1,y1),(x2,y2),(x3,y3),(x4,y4)]
-                        #print "x1,y1:", x1,y1
+                        self.box_co_ords = [(x1, y1), (x2, y2), (x3, y3), (x4, y4)]
+                        #print "BOX CO-ORDINATES %s" % str(approx)
                         self.shapes.append(self.shape(self.contours[i][j], self.r_frame, colors))
                         current_shape = self.shape(self.contours[i][j], self.r_frame, colors)
-                        self.features(co_ords, self.box_co_ords, self.colour_string, current_shape, the_area)
+                        self.features(co_ords,self.box_co_ords, appr_list, self.colour_string, current_shape, area=the_area)
                         # Function checks area's within bounds, and draws a rectangle around the contour bounds.
-                        #print "Co-ords: ", (x2, y2)
+
 
                         # Write the contour rectangle index in subscript of the rectangle
                         if self.checkArea(the_area, resize * self.frame_area/(10000), resize * self.frame_area):
@@ -248,7 +259,6 @@ class ColourTrack():
         #cv2.imshow("White Mask", self.r_maskClose)
         self.r_frame = cv2.resize(self.r_frame,dsize = (0,0), fx = resize, fy= resize)
         cv2.imshow("Contoured Frame", self.r_frame)
-        #cv2.imshow("grey", self.grey)
 
     # FUnction to determine the shape of contours on the contoured frame
     def shape(self, c, frame = None, colour=None):
@@ -281,14 +291,14 @@ class ColourTrack():
             shape = "circle"
 
         M = cv2.moments(c)
-        cX = int(M["m10"] / M["m00"])
-        cY = int(M["m01"] / M["m00"])
+        self.cX = int(M["m10"] / M["m00"])
+        self.cY = int(M["m01"] / M["m00"])
 
         # Draw the contour and center of the shape on the image
 
         # Draw centre circle on shape
-        cv2.circle(frame, (cX, cY), 7, colour, -1)
-        cv2.putText(frame, "%s" % shape, (cX - 20, cY - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, colour, 2)
+        cv2.circle(frame, (self.cX, self.cY), 7, colour, -1)
+        cv2.putText(frame, "%s" % shape, (self.cX - 20, self.cY - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, colour, 2)
 
         return shape
 
@@ -310,15 +320,19 @@ class ColourTrack():
 
 
     # Function applying logic to contour properties to categorise the obstacles
-    def features(self, co_ords, box_co_ords, colour, shape, area = None):
+    def features(self, co_ords, box_co_ords, approx, colour, shape, area = None):
+        #self.features_count += 1
         c = str(co_ords)
-
         self.objects[c] = {}
         self.objects[c]['co-ords'] = box_co_ords
-        self.objects[c]['str_coords'] = str(box_co_ords)
+        #print "\n\n\n"
+        #approx = approx.split("\n\n")
+        #approx = ",".join(approx)
+        self.objects[c]['str_coords'] = "%s" %(str(approx))
         self.objects[c]['colour'] = colour
         self.objects[c]['shape'] = shape
         self.objects[c]['area'] = area
+        self.objects[c]['centre'] = (self.cX, self.cY)
 
         #print "\n %s, %s, %s " % (c,self.objects[c]['colour'],self.objects[c]['shape'])
 
@@ -349,6 +363,34 @@ class ColourTrack():
         else:
             self.objects[c]['type'] = "Unknown"
             print "ERROR: CAN'T IDENTIFY THE TERRAIN FEATURE"
+
+
+    def findBridge(self):
+        white_rect = []
+        wr_count = 0
+        x_ok = "NOT OK"
+        x_list = []
+        y_list = []
+        for co_ord in self.co_ord_list:
+            c = str(co_ord)
+            type = self.objects[c]['type']
+            shape = self.objects[c]['shape']
+            area = self.objects[c]['area']
+            if type == "Terrain edge" and shape == "rectangle" and area > self.frame_area/1000:
+                white_rect.append(self.objects[c])
+                x_list.append(self.objects[c]['centre'][0])
+                y_list.append(self.objects[c]['centre'][1])
+        print "\n\nWhite rect %s" %str(white_rect)
+        for wr in white_rect:
+            x = wr['centre'][0]
+            y = wr['centre'][1]
+            for i in range(len(white_rect)):
+                if x_list[i] + self.px_cols/2 > x  and x_list[i] - self.px_cols/2 < x and x != x_list[i]:
+                    x_ok = "OK"
+                if y_list[i] + self.px_rows/20 > y  and y_list[i] - self.px_rows/20 < y and y != y_list[i]:
+                    if x_ok == "OK":
+                        print "FOUND BRIDGE"
+
 
 
 
