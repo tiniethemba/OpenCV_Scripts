@@ -40,7 +40,7 @@ on_off = 0
 
 import numpy as np
 import time
-if on_off ==1:
+if on_off == 1:
     from std_msgs.msg import String
     import rospy
 

@@ -3,9 +3,9 @@ import numpy as np
 import talker
 
 class ColourTrack():
-    def __init__(self, px_cols, px_rows, cam = None, redBounds=None, greenBounds=None, blueBounds=None, yellowBounds = None, whiteBounds = None, filename = None):
-
-        self.cap = cam
+    def __init__(self, px_cols=None, px_rows=None, cam = None, redBounds=None, greenBounds=None, blueBounds=None, yellowBounds = None, whiteBounds = None, filename = None, screen = None):
+        self.screen = screen
+        self.cam = cam
         self.count = 0
         self.found_blue = 0
         self.found_green = 0
@@ -22,7 +22,7 @@ class ColourTrack():
         self.px_rows = px_rows
         self.frame_area = self.px_cols * self.px_rows
         self.fourcc = cv2.VideoWriter_fourcc(*'XVID')
-        self.out = cv2.VideoWriter("output.avi", self.fourcc, 10.0, (self.px_cols, self.px_rows))
+        #self.out = cv2.VideoWriter("output.avi", self.fourcc, 10.0, (self.px_cols, self.px_rows))
         self.objects = {
         }
         self.co_ord_list = []
@@ -58,15 +58,17 @@ class ColourTrack():
             self.w_lowerBound = whiteBounds[0]
             self.w_upperBound = whiteBounds[1]
         if cam:
-            self.ret, self.frame = self.cap.read()
+            self.ret, self.frame = self.cam.read()
         else:
             self.frame = cv2.imread(filename)
 
 
 
         # Resized to process faster
-        self.frame = cv2.resize(self.frame, (self.px_cols, self.px_rows))
-        self.r_frame = cv2.resize(self.frame, (self.px_cols, self.px_rows))
+        if self.px_cols != None:
+            self.frame = cv2.resize(self.frame, (self.px_cols, self.px_rows))
+            self.r_frame = cv2.resize(self.frame, (self.px_cols, self.px_rows))
+        self.r_frame = self.frame
         self.grey = cv2.cvtColor(self.frame, cv2.COLOR_BGR2GRAY)
         # self.r_frame1 = cv2.resize(frame,(340,220))
         self.r_frame = self.denoise(self.r_frame)
@@ -118,6 +120,8 @@ class ColourTrack():
             self.y_maskClose = cv2.morphologyEx(self.y_maskOpen, cv2.MORPH_CLOSE, self.kernelClose)
             self.y_maskFinal = self.denoise(self.y_maskClose)
             #self.y_maskFinal = self.denoise(self.y_maskFinal)
+        # Don't show if the LCD select script is running
+        if not self.screen:
             cv2.imshow("Open", self.y_maskOpen)
             cv2.imshow("CLosed", self.y_maskClose)
 
@@ -194,7 +198,9 @@ class ColourTrack():
                 for j in range(len(self.contours[i])):
                     gen_area = cv2.contourArea(self.contours[i][j])
                     if self.checkArea(gen_area, resize * self.frame_area/10000, resize * self.frame_area):
-                        cv2.imshow("Pre-shape frame", self.r_frame)
+                        # Don't show if the LCD select script is running
+                        if not self.screen:
+                            cv2.imshow("Pre-shape frame", self.r_frame)
                         rect = cv2.minAreaRect(self.contours[i][j])
                         box = cv2.boxPoints(rect)
                         self.box = np.int0(box)
@@ -342,14 +348,22 @@ class ColourTrack():
 
         elif shape == 'circle' and colour == "Red":
             self.objects[c]['type'] = "Fuel Cell"
-            print "FOUND FUEL CELL!!!!!!"
+            if not self.screen:
+                print "FOUND FUEL CELL!!!!!!"
 
         elif shape == 'rectangle' and colour == "Green":
             self.objects[c]['type'] = "DaNI Robot"
 
 
         elif shape == 'rectangle' and colour == "Blue":
-            self.objects[c]['type'] = "Chair"
+            if self.screen:
+                self.objects[c]['type'] = "Screen"
+            else:
+                self.objects[c]['type'] = "Chair"
+
+        elif shape == 'rectangular' and colour == 'Blue':
+            if self.screen:
+                self.objects[c]['type'] = "Screen"
 
         elif colour == "Yellow":
             self.objects[c]['type'] = "Potential Marker"
@@ -362,7 +376,8 @@ class ColourTrack():
 
         else:
             self.objects[c]['type'] = "Unknown"
-            print "ERROR: CAN'T IDENTIFY THE TERRAIN FEATURE"
+            if not self.screen:
+                print "ERROR: CAN'T IDENTIFY THE TERRAIN FEATURE"
 
 
     def findBridge(self):

@@ -6,6 +6,7 @@ class MyArgs():
         ap = argparse.ArgumentParser()
         ap.add_argument("-v", "--cam")
         ap.add_argument("-i", "--im")
+        ap.add_argument("-vv","--vid")
         self.args = vars(ap.parse_args())
 
     def imcam(self):
@@ -15,8 +16,11 @@ class MyArgs():
             return lst
         elif self.args.get("cam", 0):
             self.cam_index = int(self.args["cam"])
-            self.cap = cv2.VideoCapture(self.cam_index)
-            lst = ["cam", self.cap]
+            lst = ["cam", self.cam_index]
+            return lst
+        elif self.args.get("vid", 0):
+            self.vid = self.args["vid"]
+            lst = ["vid", self.vid]
             return lst
         else:
             return [0]
