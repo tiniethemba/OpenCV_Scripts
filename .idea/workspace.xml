@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b3e94cf0-158c-413e-a474-9d271b90c157" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output.avi" afterPath="$PROJECT_DIR$/output.avi" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test.avi" afterPath="$PROJECT_DIR$/test.avi" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ColourTrack.py" afterPath="$PROJECT_DIR$/ColourTrack.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MyArgs.py" afterPath="$PROJECT_DIR$/MyArgs.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SelectScreen.py" afterPath="$PROJECT_DIR$/SelectScreen.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/object_track.py" afterPath="$PROJECT_DIR$/object_track.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/talker.py" afterPath="$PROJECT_DIR$/talker.py" />
-    </list>
+    <list default="true" id="b3e94cf0-158c-413e-a474-9d271b90c157" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -40,13 +31,47 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SelectScreen.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SelectScreen.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SelectScreen.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="622">
-              <caret line="158" column="0" lean-forward="true" selection-start-line="158" selection-start-column="0" selection-end-line="158" selection-end-column="0" />
+            <state relative-caret-position="262">
+              <caret line="138" column="58" lean-forward="true" selection-start-line="138" selection-start-column="58" selection-end-line="138" selection-end-column="58" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AutomaticGit.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/AutomaticGit.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="222">
+              <caret line="7" column="1" lean-forward="false" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
+              <folding>
+                <element signature="e#0#17#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="commandline.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/commandline.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="14" column="20" lean-forward="true" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sunday_lunch.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../PycharmProjects/sunday_lunch.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -185,6 +210,8 @@
         <option value="$PROJECT_DIR$/MyArgs.py" />
         <option value="$PROJECT_DIR$/ColourTrack.py" />
         <option value="$PROJECT_DIR$/SelectScreen.py" />
+        <option value="$PROJECT_DIR$/commandline.py" />
+        <option value="$PROJECT_DIR$/AutomaticGit.py" />
       </list>
     </option>
   </component>
@@ -233,7 +260,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.object_track">
+  <component name="RunManager" selected="Python.commandline">
     <configuration name="FuelControl" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -285,6 +312,23 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
+    <configuration name="commandline" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="OpenCV_Scripts" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/commandline.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
     <configuration name="object_track" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -302,37 +346,20 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
-    <configuration name="select_screen" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="OpenCV_Scripts" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/select_screen.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-    </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.object_track" />
-      <item index="1" class="java.lang.String" itemvalue="Python.select_screen" />
-      <item index="2" class="java.lang.String" itemvalue="Python.FuelControl" />
-      <item index="3" class="java.lang.String" itemvalue="Python.SelectScreen" />
-      <item index="4" class="java.lang.String" itemvalue="Python.Just_film" />
+      <item index="1" class="java.lang.String" itemvalue="Python.FuelControl" />
+      <item index="2" class="java.lang.String" itemvalue="Python.SelectScreen" />
+      <item index="3" class="java.lang.String" itemvalue="Python.Just_film" />
+      <item index="4" class="java.lang.String" itemvalue="Python.commandline" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.object_track" />
-        <item index="1" class="java.lang.String" itemvalue="Python.Just_film" />
-        <item index="2" class="java.lang.String" itemvalue="Python.SelectScreen" />
-        <item index="3" class="java.lang.String" itemvalue="Python.FuelControl" />
-        <item index="4" class="java.lang.String" itemvalue="Python.select_screen" />
+        <item index="0" class="java.lang.String" itemvalue="Python.commandline" />
+        <item index="1" class="java.lang.String" itemvalue="Python.object_track" />
+        <item index="2" class="java.lang.String" itemvalue="Python.Just_film" />
+        <item index="3" class="java.lang.String" itemvalue="Python.SelectScreen" />
+        <item index="4" class="java.lang.String" itemvalue="Python.FuelControl" />
       </list>
     </recent_temporary>
   </component>
@@ -383,9 +410,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/dani_robot_image14.png" />
-    <entry file="file://$PROJECT_DIR$/dani_robot_image15.png" />
-    <entry file="file://$PROJECT_DIR$/dani_robot_image12.png" />
     <entry file="file://$PROJECT_DIR$/dani_robot_image9.png" />
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -670,6 +694,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/SelectScreen.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="262">
+          <caret line="138" column="58" lean-forward="true" selection-start-line="138" selection-start-column="58" selection-end-line="138" selection-end-column="58" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../PycharmProjects/sunday_lunch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ColourTrack.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-602">
@@ -680,12 +724,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SelectScreen.py">
+    <entry file="file://$PROJECT_DIR$/commandline.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="622">
-          <caret line="158" column="0" lean-forward="true" selection-start-line="158" selection-start-column="0" selection-end-line="158" selection-end-column="0" />
+        <state relative-caret-position="238">
+          <caret line="14" column="20" lean-forward="true" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AutomaticGit.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="7" column="1" lean-forward="false" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
           <folding>
-            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#0#17#0" expanded="true" />
           </folding>
         </state>
       </provider>
