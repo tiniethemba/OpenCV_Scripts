@@ -259,7 +259,7 @@ class ColourTrack():
 
 
                         # Write the contour rectangle index in subscript of the rectangle
-                        if self.checkArea(the_area, resize * self.frame_area/(10000), resize * self.frame_area):
+                        if self.checkArea(the_area, resize * self.frame_area/(10000), resize * self.frame_area) and self.screen == None:
                             cv2.putText(self.r_frame, "[%s]: %s, %s, %s" % (self.objects[str(co_ords)]['type'],str(x2), str(y2), str(the_area)), (x2, y2), self.font, fontScale=0.5, color=colors, thickness=2)
 
         #cv2.imshow("White Mask", self.r_maskClose)
@@ -303,8 +303,9 @@ class ColourTrack():
         # Draw the contour and center of the shape on the image
 
         # Draw centre circle on shape
-        cv2.circle(frame, (self.cX, self.cY), 7, colour, -1)
-        cv2.putText(frame, "%s" % shape, (self.cX - 20, self.cY - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, colour, 2)
+        if not self.screen:
+            cv2.circle(frame, (self.cX, self.cY), 7, colour, -1)
+            cv2.putText(frame, "%s" % shape, (self.cX - 20, self.cY - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, colour, 2)
 
         return shape
 
@@ -352,6 +353,9 @@ class ColourTrack():
                 print "FOUND FUEL CELL!!!!!!"
 
         elif shape == 'rectangle' and colour == "Green":
+            self.objects[c]['type'] = "Tri-Track Robot"
+
+        elif shape == 'rectangle' and colour == "Red":
             self.objects[c]['type'] = "DaNI Robot"
 
 
@@ -359,14 +363,14 @@ class ColourTrack():
             if self.screen:
                 self.objects[c]['type'] = "Screen"
             else:
-                self.objects[c]['type'] = "Chair"
+                self.objects[c]['type'] = "Tri-Track Robot"
 
         elif shape == 'rectangular' and colour == 'Blue':
             if self.screen:
                 self.objects[c]['type'] = "Screen"
 
-        elif colour == "Yellow":
-            self.objects[c]['type'] = "Potential Marker"
+        #elif colour == "Yellow":
+            #self.objects[c]['type'] = "Potential Marker"
 
         elif shape == 'rectangle' and colour == "Red":
             self.objects[c]['type'] = "Tri-Track"
