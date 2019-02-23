@@ -1,3 +1,6 @@
 *.jpg
 *.png
+*.avi
+*.mp4
 *.xml
+*.pyc

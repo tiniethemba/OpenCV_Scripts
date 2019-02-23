@@ -27,8 +27,8 @@ while(1):
     upper_blue1 = np.uint8([[[130, 255, 255]]])
     upper_blue_bgr = cv2.cvtColor(upper_blue1, cv2.COLOR_HSV2BGR)
 
-    print lower_blue_bgr
-    print upper_blue_bgr
+    print(lower_blue_bgr)
+    print(upper_blue_bgr)
 
 
     # Threshold the HSV image to get only blue colors

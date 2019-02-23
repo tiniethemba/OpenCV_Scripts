@@ -51,37 +51,38 @@ class SelectScreen():
 
     def get_letters(self, im = None):
         # Perform pre-processing on the cropped image
-        get_letters = self.ct.auto_canny(im)
+        if im is not None:
+            self.get_letters = self.ct.auto_canny(im)
 
-        cv2.imshow("after_canny.jpg", get_letters)
-        # Run the Tesseract engine to get string
-        self.letters = tess.image_to_string(Image.fromarray(get_letters)).encode("utf-8")
+            cv2.imshow("after_canny.jpg", self.get_letters)
+            # Run the Tesseract engine to get string
+            self.letters = tess.image_to_string(Image.fromarray(self.get_letters)).encode("utf-8")
 
-        # Separate string into characters
-        self.letters_list = list(self.letters)
+            # Separate string into characters
+            self.letters_list = list(self.letters)
 
-        #Initalisations for the next step's process
-        self.desired_str = "EQUALequal"
-        self.continue_str = "42.8B"
-        self.des_count = 0
-        self.cont_count = 0
+            #Initalisations for the next step's process
+            self.desired_str = "EQUALequal"
+            self.continue_str = "42.8B"
+            self.des_count = 0
+            self.cont_count = 0
 
-        # Print for Debug
-        print self.letters
+            # Print for Debug
+            print self.letters
 
-        # Check if screen string matches desired.
-        for des in self.desired_str:
-            if des in self.letters:
-                self.des_count+=1
-        if self.des_count > 3:
-            print "STOP TURNING!!!!!"
+            # Check if screen string matches desired.
+            for des in self.desired_str:
+                if des in self.letters:
+                    self.des_count+=1
+            if self.des_count > 3:
+                print "STOP TURNING!!!!!"
 
-        # Check if screen string matches the string for continuing
-        for cont in self.continue_str:
-            if cont in self.letters:
-                self.cont_count+=1
-        if self.cont_count > 2:
-            print "KEEP TURNING!!!!!"
+            # Check if screen string matches the string for continuing
+            for cont in self.continue_str:
+                if cont in self.letters:
+                    self.cont_count+=1
+            if self.cont_count > 2:
+                print "PLEASE TURN RIGHT!!"
 
     def ROS_pub(self, message = None, image = None, topic = None, rate = None):
         talk = talker.Talker(message,topic,rate)
@@ -102,6 +103,10 @@ elif arg_lst[0] == "vid":
 else:
     file = "LCD.png"
     cam = cv2.VideoCapture(0)
+
+fourcc = cv2.VideoWriter_fourcc(*'XVID')
+out = cv2.VideoWriter("FinalResult.avi", fourcc, 20.0)
+
 
 loop_count = 0
 while True:
@@ -125,10 +130,13 @@ while True:
                 except cv2.error:
                     cv2.imwrite("LastFrame.jpg",ss.ct.r_frame)
                 # Convert frame into greyscale
+
                 crop_grey = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
 
                 # Preprocess image & run the Tesseract engine to get the on-screen letters.
                 ss.get_letters(crop_grey)
+                out.write(ss.get_letters)
+
 
     key = cv2.waitKey(10) & 0xFF
 

@@ -24,7 +24,7 @@ else:
 
 
 # Upper & lower bounds for general colours
-g_list = [np.array([34,100,120]), np.array([100,255,255])]
+g_list = [np.array([34,100,0]), np.array([100,255,84])]
 y_list = [np.array([23,70,210]), np.array([30,255,255])]
 r_list = [np.array([0,120,170]),np.array([18, 255,255])]
 b_list = [np.array([95,100,100]),np.array([130, 255, 255])]

@@ -3,10 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="b3e94cf0-158c-413e-a474-9d271b90c157" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test.avi" afterPath="$PROJECT_DIR$/test.avi" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/OpenCV_Scripts.iml" afterPath="$PROJECT_DIR$/.idea/OpenCV_Scripts.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AutomaticGit.py" afterPath="$PROJECT_DIR$/AutomaticGit.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ColourTrack.py" afterPath="$PROJECT_DIR$/ColourTrack.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SelectScreen.py" afterPath="$PROJECT_DIR$/SelectScreen.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blue_openCV.py" afterPath="$PROJECT_DIR$/blue_openCV.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/get_hsv_values.py" afterPath="$PROJECT_DIR$/get_hsv_values.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/object_track.py" afterPath="$PROJECT_DIR$/object_track.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -20,7 +23,7 @@
       <file leaf-file-name="MyArgs.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MyArgs.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
+            <state relative-caret-position="350">
               <caret line="15" column="22" lean-forward="false" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
               <folding />
             </state>
@@ -30,19 +33,23 @@
       <file leaf-file-name="object_track.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/object_track.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="10" lean-forward="false" selection-start-line="0" selection-start-column="10" selection-end-line="0" selection-end-column="10" />
-              <folding />
+            <state relative-caret-position="550">
+              <caret line="26" column="28" lean-forward="false" selection-start-line="26" selection-start-column="28" selection-end-line="26" selection-end-column="28" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SelectScreen.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SelectScreen.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SelectScreen.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="4" column="26" lean-forward="true" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
-              <folding />
+            <state relative-caret-position="2650">
+              <caret line="113" column="56" lean-forward="false" selection-start-line="113" selection-start-column="56" selection-end-line="113" selection-end-column="56" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -50,8 +57,8 @@
       <file leaf-file-name="get_hsv_values.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/get_hsv_values.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="867">
-              <caret line="53" column="30" lean-forward="false" selection-start-line="53" selection-start-column="30" selection-end-line="53" selection-end-column="30" />
+            <state relative-caret-position="1525">
+              <caret line="63" column="32" lean-forward="false" selection-start-line="63" selection-start-column="32" selection-end-line="63" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -60,33 +67,9 @@
       <file leaf-file-name="AutomaticGit.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AutomaticGit.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="11" column="21" lean-forward="false" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
-              <folding>
-                <element signature="e#0#17#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="commandline.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/commandline.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+            <state relative-caret-position="0">
+              <caret line="0" column="17" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sunday_lunch.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../PycharmProjects/sunday_lunch.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#14#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -94,7 +77,7 @@
       <file leaf-file-name="ColourTrack.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ColourTrack.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="797">
+            <state relative-caret-position="9250">
               <caret line="372" column="13" lean-forward="false" selection-start-line="372" selection-start-column="13" selection-end-line="372" selection-end-column="13" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
@@ -103,11 +86,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="blue_openCV.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/blue_openCV.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="460">
+              <caret line="33" column="50" lean-forward="false" selection-start-line="33" selection-start-column="50" selection-end-line="33" selection-end-column="50" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Just_film.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Just_film.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="30" lean-forward="false" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
+            <state relative-caret-position="200">
+              <caret line="8" column="16" lean-forward="false" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -211,7 +204,6 @@
         <option value="$PROJECT_DIR$/Object_Track_with_BS.py" />
         <option value="$PROJECT_DIR$/movement_tracker.py" />
         <option value="$PROJECT_DIR$/select_tracker.py" />
-        <option value="$PROJECT_DIR$/blue_openCV.py" />
         <option value="$PROJECT_DIR$/frame_subtract.py" />
         <option value="$PROJECT_DIR$/Color_detect.py" />
         <option value="$PROJECT_DIR$/Just_pic.py" />
@@ -221,7 +213,6 @@
         <option value="$PROJECT_DIR$/1FAST.py" />
         <option value="$PROJECT_DIR$/improved_matching.py" />
         <option value="$PROJECT_DIR$/Bf_match.py" />
-        <option value="$PROJECT_DIR$/get_hsv_values.py" />
         <option value="$PROJECT_DIR$/ColourFilter.py" />
         <option value="C:/Python27/Lib/site-packages/pytesseract/pytesseract.py" />
         <option value="$PROJECT_DIR$/open_cv_play.py" />
@@ -230,12 +221,14 @@
         <option value="$PROJECT_DIR$/GetHSV.py" />
         <option value="$PROJECT_DIR$/select_screen.py" />
         <option value="$PROJECT_DIR$/talker.py" />
-        <option value="$PROJECT_DIR$/object_track.py" />
         <option value="$PROJECT_DIR$/MyArgs.py" />
         <option value="$PROJECT_DIR$/commandline.py" />
         <option value="$PROJECT_DIR$/AutomaticGit.py" />
-        <option value="$PROJECT_DIR$/SelectScreen.py" />
         <option value="$PROJECT_DIR$/ColourTrack.py" />
+        <option value="$PROJECT_DIR$/object_track.py" />
+        <option value="$PROJECT_DIR$/get_hsv_values.py" />
+        <option value="$PROJECT_DIR$/SelectScreen.py" />
+        <option value="$PROJECT_DIR$/blue_openCV.py" />
       </list>
     </option>
   </component>
@@ -266,6 +259,7 @@
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$/get_hsv_values.py" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$2/Languages" value="Python" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -284,7 +278,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.commandline">
+  <component name="RunManager" selected="Python.Just_film">
     <configuration name="FuelControl" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -379,9 +373,9 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.commandline" />
-        <item index="1" class="java.lang.String" itemvalue="Python.object_track" />
-        <item index="2" class="java.lang.String" itemvalue="Python.Just_film" />
+        <item index="0" class="java.lang.String" itemvalue="Python.Just_film" />
+        <item index="1" class="java.lang.String" itemvalue="Python.commandline" />
+        <item index="2" class="java.lang.String" itemvalue="Python.object_track" />
         <item index="3" class="java.lang.String" itemvalue="Python.SelectScreen" />
         <item index="4" class="java.lang.String" itemvalue="Python.FuelControl" />
       </list>
@@ -442,13 +436,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Python27/Lib/site-packages/imutils/object_detection.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="16" column="9" lean-forward="false" selection-start-line="16" selection-start-column="9" selection-end-line="16" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://C:/Python27/Lib/site-packages/imutils/object_detection.py" />
     <entry file="file://$PROJECT_DIR$/get_hsv values.py" />
     <entry file="file://$PROJECT_DIR$/Object_Track_with_BS.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -517,13 +505,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Python27/Lib/site-packages/cv2/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://C:/Python27/Lib/site-packages/cv2/__init__.py" />
     <entry file="file://$PROJECT_DIR$/../Python Experiments/Learn_THread.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-743">
@@ -566,13 +548,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/blue_openCV.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="11" column="9" lean-forward="true" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/improved_matching.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="50">
@@ -592,13 +567,7 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://C:/Python27/Lib/site-packages/pytesseract/pytesseract.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="25" column="66" lean-forward="false" selection-start-line="25" selection-start-column="66" selection-end-line="25" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://C:/Python27/Lib/site-packages/pytesseract/pytesseract.py" />
     <entry file="file://$PROJECT_DIR$/flann_vid.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-118">
@@ -674,9 +643,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MyArgs.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
+        <state relative-caret-position="350">
           <caret line="15" column="22" lean-forward="false" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/object_track.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="550">
+          <caret line="26" column="28" lean-forward="false" selection-start-line="26" selection-start-column="28" selection-end-line="26" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -684,57 +663,53 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Just_film.py">
+    <entry file="file://$PROJECT_DIR$/commandline.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="30" lean-forward="false" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
+        <state relative-caret-position="0">
+          <caret line="0" column="9" lean-forward="true" selection-start-line="0" selection-start-column="9" selection-end-line="0" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AutomaticGit.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="17" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/get_hsv_values.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="867">
-          <caret line="53" column="30" lean-forward="false" selection-start-line="53" selection-start-column="30" selection-end-line="53" selection-end-column="30" />
+        <state relative-caret-position="1525">
+          <caret line="63" column="32" lean-forward="false" selection-start-line="63" selection-start-column="32" selection-end-line="63" selection-end-column="32" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AutomaticGit.py">
+    <entry file="file://$PROJECT_DIR$/Just_film.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="11" column="21" lean-forward="false" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
+        <state relative-caret-position="200">
+          <caret line="8" column="16" lean-forward="false" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SelectScreen.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2650">
+          <caret line="113" column="56" lean-forward="false" selection-start-line="113" selection-start-column="56" selection-end-line="113" selection-end-column="56" />
           <folding>
-            <element signature="e#0#17#0" expanded="true" />
+            <element signature="e#0#35#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/commandline.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/object_track.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="10" lean-forward="false" selection-start-line="0" selection-start-column="10" selection-end-line="0" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ColourTrack.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="797">
+        <state relative-caret-position="9250">
           <caret line="372" column="13" lean-forward="false" selection-start-line="372" selection-start-column="13" selection-end-line="372" selection-end-column="13" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
@@ -742,10 +717,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SelectScreen.py">
+    <entry file="file://$PROJECT_DIR$/blue_openCV.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="4" column="26" lean-forward="true" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
+        <state relative-caret-position="460">
+          <caret line="33" column="50" lean-forward="false" selection-start-line="33" selection-start-column="50" selection-end-line="33" selection-end-column="50" />
           <folding />
         </state>
       </provider>
